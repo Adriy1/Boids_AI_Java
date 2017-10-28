@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class TestJava {
+public class TestBalls {
 
 
   public static void main(String[] args) {
