@@ -21,7 +21,14 @@
 #   -classpath : repertoire dans lequel sont cherches les .class deja compiles
 #   -sourcepath : repertoire dans lequel sont cherches les .java (dependances)
 
-all: testGUI 
+all: Balle testGUI
+
+Balle:
+	javac -d bin/balle/ -classpath bin/gui.jar -sourcepath src/balle/ src/balle/TestBallsSimulator.java
+
+exeBalle:
+	java -classpath bin/balle:bin/gui.jar  TestBallsSimulator
+
 
 testGUI:
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestGUI.java
@@ -37,4 +44,3 @@ exeGUI:
 
 clean:
 	rm -rf bin/*.class
-

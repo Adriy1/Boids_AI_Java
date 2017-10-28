@@ -4,7 +4,6 @@ public class TestJava {
 
 
   public static void main(String[] args) {
-    int DX,DY;
     int dx=5,dy=5;
     Point test = new Point(5,4);
     Balls bb = new Balls(test,100);
