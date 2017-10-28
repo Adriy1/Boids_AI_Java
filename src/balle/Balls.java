@@ -1,12 +1,12 @@
 import java.awt.*;
 
 public class Balls {
-  Point balle1;
   int taille;
+  Point balle1;
   public int DX;
   public int DY;
 
-  public Balls(Point balle1, int taille) {this.balle1=balle1; this.taille=taille;  }
+  public Balls(int taille) {this.balle1= new Point(0,0); this.taille=taille;  }
 
   void translate( int dx,  int dy){
     this.DX = dx;
@@ -71,7 +71,7 @@ public class Balls {
   }
 
   public void reInit() {
-    this.balle1.setLocation(50,50);
+    this.balle1.setLocation(0,0);
 
 }
 

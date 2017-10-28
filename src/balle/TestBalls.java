@@ -5,12 +5,11 @@ public class TestBalls {
 
   public static void main(String[] args) {
     int dx=5,dy=5;
-    Point test = new Point(5,4);
-    Balls bb = new Balls(test,100);
+    Balls bb = new Balls(100);
     int i;
     for(i=0;i<100;i++) {
       bb.translate(dx,dy);
-      System.out.println(bb.balle1.toString() + "DY: " + bb.DY + "et DX: " + bb.DX);
+      System.out.println(bb.balle1.toString());
       dx= bb.DX;
       dy =bb.DY;
     }

@@ -21,13 +21,19 @@
 #   -classpath : repertoire dans lequel sont cherches les .class deja compiles
 #   -sourcepath : repertoire dans lequel sont cherches les .java (dependances)
 
-all: Balle testGUI
+all: Balle testGUI SimBalle
 
 Balle:
-	javac -d bin/balle/ -classpath bin/gui.jar -sourcepath src/balle/ src/balle/TestBallsSimulator.java
+	javac -d bin/balle/ -classpath bin/gui.jar -sourcepath src/balle/ src/balle/TestBalls.java
 
 exeBalle:
-	java -classpath bin/balle:bin/gui.jar  TestBallsSimulator
+	java -classpath bin/balle:bin/gui.jar  TestBalls
+
+SimBalle:
+		javac -d bin/balle/ -classpath bin/gui.jar -sourcepath src/balle/ src/balle/TestBallsSimulator.java
+
+exeSimBalle:
+		java -classpath bin/balle:bin/gui.jar  TestBallsSimulator
 
 
 testGUI:
