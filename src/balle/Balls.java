@@ -1,77 +1,84 @@
 import java.awt.*;
+import java.util.LinkedList;
+import java.util.*;
 
 public class Balls {
   int taille;
-  Point balle1;
-  public int DX;
-  public int DY;
+  LinkedList<Ball> ListeBalle;
 
-  public Balls(int taille) {this.balle1= new Point(0,0); this.taille=taille;  }
-
-  void translate( int dx,  int dy){
-    this.DX = dx;
-    this.DY = dy;
-    if (this.balle1.getX() + dx > 0 && this.balle1.getX() + dx < this.taille) {
-      if (this.balle1.getY() + dy >= 0 && this.balle1.getY() + dy < this.taille) {
-        this.balle1.setLocation(this.balle1.getX() + dx,this.balle1.getY()+dy);
-      }
-      else {
-        if(this.balle1.getY() + dy < 0){
-          // x bon y negatif
-          this.balle1.setLocation(this.balle1.getX() + dx,-dy-this.balle1.getY());
-          this.DY = -dy;
-        }
-        else {
-          //x bon y > taille
-          this.balle1.setLocation(this.balle1.getX() + dx,taille-(dy+this.balle1.getY()-taille));
-          this.DY = -dy;
-        }
-      }
-    }
-    else {
-      if (this.balle1.getY() + dy >= 0 && this.balle1.getY() + dy < this.taille){
-        if (this.balle1.getX() + dx <= 0) {
-          //x <0 et y bon
-          this.balle1.setLocation(-dx-this.balle1.getX(),this.balle1.getY()+dy);
-          this.DX = -dx;
-        }
-        else {
-          // x > 100 et y bon
-          this.balle1.setLocation(taille-(dx+this.balle1.getX()-taille),this.balle1.getY()+dy);
-          this.DX = -dx;
-        }
-      }
-      else {
-        // x et y pas bon
-        if (this.balle1.getY() + dy < 0 && this.balle1.getX() + dx < 0) {
-          this.balle1.setLocation(dx-this.balle1.getX(),dy-this.balle1.getY());
-          this.DX = -dx;
-          this.DY = -dy;
-          //x <0 et y aussi
-        }
-        else if (this.balle1.getY() + dy < 0 && this.balle1.getX() + dx > taille) {
-          this.balle1.setLocation(taille-(dx+this.balle1.getX()-taille),dy-this.balle1.getY());
-          this.DX = -dx;
-          this.DY = -dy;
-        }
-        else if (this.balle1.getY() + dy > taille && this.balle1.getX() + dx < 0) {
-          this.balle1.setLocation(dx-this.balle1.getX(),taille-(dy+this.balle1.getY()-taille));
-          this.DX = -dx;
-          this.DY = -dy;
-        }
-        else {
-          this.balle1.setLocation(taille-(dx+this.balle1.getX()-taille),taille-(dy+this.balle1.getY()-taille));
-          this.DX = -dx;
-          this.DY = -dy;
-        }
-
-      }
-    }
-
+  public Balls(int taille) {
+    ListeBalle = new LinkedList<Ball>();
+    this.taille=taille;
   }
 
+  void translate(){
+    for (Ball b : ListeBalle ) {
+      int dx = b.dx;
+      int dy = b.dy;
+      if (b.p.getX() + dx > 0 && b.p.getX() + dx < this.taille) {
+        if (b.p.getY() + dy >= 0 && b.p.getY() + dy < this.taille) {
+          b.p.setLocation(b.p.getX() + dx,b.p.getY()+dy);
+        }
+        else {
+          if(b.p.getY() + dy < 0){
+            // x bon y negatif
+            b.p.setLocation(b.p.getX() + dx,-dy-b.p.getY());
+            b.dy = -dy;
+          }
+          else {
+            //x bon y > taille
+            b.p.setLocation(b.p.getX() + dx,taille-(dy+b.p.getY()-taille));
+            b.dy = -dy;
+          }
+        }
+      }
+      else {
+        if (b.p.getY() + dy >= 0 && b.p.getY() + dy < this.taille){
+          if (b.p.getX() + dx <= 0) {
+            //x <0 et y bon
+            b.p.setLocation(-dx-b.p.getX(),b.p.getY()+dy);
+            b.dx = -dx;
+          }
+          else {
+            // x > 100 et y bon
+            b.p.setLocation(taille-(dx+b.p.getX()-taille),b.p.getY()+dy);
+            b.dx = -dx;
+          }
+        }
+        else {
+          // x et y pas bon
+          if (b.p.getY() + dy < 0 && b.p.getX() + dx < 0) {
+            b.p.setLocation(dx-b.p.getX(),dy-b.p.getY());
+            b.dx = -dx;
+            b.dy = -dy;
+            //x <0 et y aussi
+          }
+          else if (b.p.getY() + dy < 0 && b.p.getX() + dx > taille) {
+            b.p.setLocation(taille-(dx+b.p.getX()-taille),dy-b.p.getY());
+            b.dx = -dx;
+            b.dy = -dy;
+          }
+          else if (b.p.getY() + dy > taille && b.p.getX() + dx < 0) {
+            b.p.setLocation(dx-b.p.getX(),taille-(dy+b.p.getY()-taille));
+            b.dx = -dx;
+            b.dy = -dy;
+          }
+          else {
+            b.p.setLocation(taille-(dx+b.p.getX()-taille),taille-(dy+b.p.getY()-taille));
+            b.dx = -dx;
+            b.dy = -dy;
+          }
+
+        }
+      }
+    }
+}
+
   public void reInit() {
-    this.balle1.setLocation(0,0);
+    for (Ball b : ListeBalle) {
+      b.p.setLocation(Math.random()*500,Math.random()*500);
+    }
+
 
 }
 
