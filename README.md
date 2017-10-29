@@ -4,6 +4,6 @@ Pour compiler lancer: $ make
 
 Pour executer le jeu avec les balles lancer: $ make exeSimBall
 
-Il y a une interface graphique pour controler la simulation (celle avec un carré blanc) et l'autre où l'on voit le jeu.
+Parametres de la simulation dans BallsSimulator.java
 
-Il faudrait faire qu'une seule interface graphique et améliorer encore quelques détails.
+Rajouter de l'aléatoire ? import java.util.*; et Math.random()
