@@ -2,8 +2,20 @@
 
 Pour compiler lancer: $ make
 
+/////////////////////////////////////////////////////////////////////////
+
+#Balle
 Pour executer le jeu avec les balles lancer: $ make exeSimBall
 
 Parametres de la simulation dans BallsSimulator.java
 
-Rajouter de l'aléatoire ? import java.util.*; et Math.random()
+A chaque restart la position des balles et leurs vitesses sont aléatoires. /!\ pas de collision entre balles
+
+
+#Immigration
+
+Pour lancer l'immigration: $ make exeSimUnivers
+
+Parametres de la simulation dans UniversSimulator.java
+
+Univers est une classe qui peut être adaptée à plusieurs modelisation. Il s'agit d'une grille qu'on initialise, et modifie comme voulu dans la simulation.

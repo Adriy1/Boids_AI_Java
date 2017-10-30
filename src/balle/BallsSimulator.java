@@ -10,9 +10,9 @@ public class BallsSimulator implements Simulable {
 
 public BallsSimulator(GUISimulator gui){
     this.bb = new Balls(500);
-    this.bb.ListeBalle.add(new Ball(new Point(30,50),10,18));
-    this.bb.ListeBalle.add(new Ball(new Point(230,150),-5,13));
-    this.bb.ListeBalle.add(new Ball(new Point(130,110),23,-3));
+    this.bb.ListeBalle.add(new Ball(new Point((int) (Math.random()*500),(int) (Math.random()*500)),(int) ((Math.random() -0.5) * 40),(int) ((Math.random() -0.5) * 40)));
+    this.bb.ListeBalle.add(new Ball(new Point((int) (Math.random()*500),(int) (Math.random()*500)),(int) ((Math.random() -0.5) * 40),(int) ((Math.random() -0.5) * 40)));
+    this.bb.ListeBalle.add(new Ball(new Point((int) (Math.random()*500),(int) (Math.random()*500)),(int) ((Math.random() -0.5) * 40),(int) ((Math.random() -0.5) * 40)));
     this.gui = gui;
     this.box();
 
