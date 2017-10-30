@@ -15,6 +15,8 @@ A chaque restart la position des balles et leurs vitesses sont aléatoires. /!\ 
 #Immigration
 
 Pour lancer l'immigration: $ make exeSimUnivers
+Initialiser avec Debut puis lancer Lecture
+/!\ Ne pas mettre trop de case sinon la simulation est très lente
 
 Parametres de la simulation dans UniversSimulator.java
 

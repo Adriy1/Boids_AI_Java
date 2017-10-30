@@ -9,7 +9,7 @@ public class UniversSimulator implements Simulable {
 
 
   public UniversSimulator(GUISimulator gui){
-      this.univ = new Univers(4,10);
+      this.univ = new Univers(4,100);
       this.gui = gui;
     }
 
