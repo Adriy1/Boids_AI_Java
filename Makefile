@@ -21,7 +21,7 @@
 #   -classpath : repertoire dans lequel sont cherches les .class deja compiles
 #   -sourcepath : repertoire dans lequel sont cherches les .java (dependances)
 
-all: SimBalle SimUnivers 2SimUnivers
+all: SimBalle SimUnivers 2SimUnivers LifeGame
 
 Balle:
 	javac -d bin/balle/ -classpath bin/gui.jar -sourcepath src/balle/ src/balle/TestBalls.java
@@ -47,6 +47,12 @@ SimUnivers:
 exeSimUnivers:
 	java -classpath bin/immigration:bin/gui.jar  TestUniversSimulator
 
+LifeGame:
+	javac -d bin/lifegame/ -classpath bin/gui.jar -sourcepath src/lifegame/ src/lifegame/TestUniversSimulator.java
+
+exeLifeGame:
+	java -classpath bin/lifegame:bin/gui.jar  TestUniversSimulator
+
 2Univers:
 	javac -d bin/schelling/ -classpath bin/gui.jar -sourcepath src/schelling/ src/schelling/TestUnivers.java
 
@@ -58,6 +64,12 @@ exe2Univers:
 
 exe2SimUnivers:
 	java -classpath bin/schelling:bin/gui.jar  TestUniversSimulator
+
+Boid:
+	javac -d bin/boid/ -classpath bin/gui.jar -sourcepath src/boid/ src/boid/TestBoidsSimulator.java
+
+exeBoids:
+	java -classpath bin/boid:bin/gui.jar  TestBoidsSimulator
 
 testGUI:
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestGUI.java
