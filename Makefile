@@ -47,6 +47,18 @@ SimUnivers:
 exeSimUnivers:
 	java -classpath bin/immigration:bin/gui.jar  TestUniversSimulator
 
+2Univers:
+	javac -d bin/schelling/ -classpath bin/gui.jar -sourcepath src/schelling/ src/schelling/TestUnivers.java
+
+exe2Univers:
+	java -classpath bin/schelling:bin/gui.jar  TestUnivers
+
+2SimUnivers:
+	javac -d bin/schelling/ -classpath bin/gui.jar -sourcepath src/schelling/ src/schelling/TestUniversSimulator.java
+
+exe2SimUnivers:
+	java -classpath bin/schelling:bin/gui.jar  TestUniversSimulator
+
 testGUI:
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestGUI.java
 

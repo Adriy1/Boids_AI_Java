@@ -27,7 +27,7 @@ public class Univers {
     // modifie la grille pour le tour suivant
     int[][] tmp = grille;
     int i,j,k=0,c=0;
-    for(i=0; i<this.taille;i++) { 
+    for(i=0; i<this.taille;i++) {
       for(j=0; j<this.taille; j++) {
         int[][] t = {{1,1},{0,1},{-1,1},{-1,0},{-1,-1},{0,-1},{1,-1},{1,0}};
         k=c=0;
@@ -51,8 +51,8 @@ public class Univers {
         }
       }
     }
-    for(i=1; i<this.taille;i++) { //boucle sur grille w/o bord
-      for(j=1; j<this.taille; j++) {
+    for(i=0; i<this.taille;i++) { //boucle sur grille w/o bord
+      for(j=0; j<this.taille; j++) {
         this.grille[i][j] = tmp[i][j];
       }
     }
