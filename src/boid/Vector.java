@@ -17,8 +17,9 @@ public class Vector {
   }
 
   public void sous(Vector v) {
-    this.x = this.x - v.x;
-    this.y = this.y - v.y;
+    this.x +=  -v.x;
+    this.y +=  -v.y;
+
   }
 
   public void mult(double l) {
@@ -26,8 +27,13 @@ public class Vector {
     this.y = (int) (this.y*l);
   }
 
-  public int norm() {
-    return (int)(Math.sqrt(this.x*this.x+this.y*this.y));
+  public double norm() {
+    return (Math.sqrt(this.x*this.x+this.y*this.y));
+  }
+
+  public String toString() {
+    String s ="Vitesse x : "+this.x+" Vitesse y : "+this.y;
+    return s;
   }
 
 }

@@ -25,8 +25,13 @@ public class Univers {
 
   public void suivant() {
     // modifie la grille pour le tour suivant
-    int[][] tmp = grille;
+    int[][] tmp = new int[this.taille][this.taille];
     int i,j,k=0,c=0;
+    for(i=0; i<this.taille;i++) {
+      for(j=0; j<this.taille; j++) {
+        tmp[i][j] = this.grille[i][j];
+      }
+    }
     for(i=0; i<this.taille;i++) {
       for(j=0; j<this.taille; j++) {
         int[][] t = {{1,1},{0,1},{-1,1},{-1,0},{-1,-1},{0,-1},{1,-1},{1,0}};

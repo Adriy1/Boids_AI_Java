@@ -26,25 +26,32 @@ public class Boids {
           v1.plus(v); //on somme tous les vecteurs positions pour les boids pour obtenir une moyenne percue
         }
     }
-    v1.mult(1/(this.nbBoid-1)); // on fait la moyenne
+    v1.mult((double)1/(this.nbBoid-1)); // on fait la moyenne
     v1.sous(new Vector((int)this.tabBoid[j].p.getX(),(int)this.tabBoid[j].p.getY())); // on calcule le vecteur qui va du boidj au point moyen percue
-    v1.mult(0.001); //facteur pour limiter l'influence
+    v1.mult(0.005); //facteur pour limiter l'influence
     return v1;
   }
 
   public Vector repulsion(int j) {
     Vector v2 = new Vector(0,0);
-    Vector w = v2;
+    Vector w = new Vector(0,0);
+    int c=1;
     for( Boid e : this.tabBoid) {
       if (e != this.tabBoid[j]) {
         w.x = (int) (e.p.getX() - this.tabBoid[j].p.getX());
         w.y = (int) (e.p.getY() - this.tabBoid[j].p.getY());  // w = position du boid e - position du boid j
-        if (w.norm() < 40 ) {
-          v2.sous(w); // si la norme de w < a une valeur alors v2 = - w
+        System.out.println("W repulsion: "+w.norm());
+        if (w.norm() < 15 ) {
+          v2.sous(w);
+           // si la norme de w < a une valeur alors v2 = - w
+          c++;
+          System.out.println("W repulsion compteur "+c+" v2: "+v2.toString() +" // w:" + w.toString());
         }
       }
     }
-    v2.mult(0.01);
+    System.out.println("apres boucle v2: "+v2.toString());
+    v2.mult((double) 1/c);
+    System.out.println("apres norm v2: "+v2.toString());
     return v2;
   }
 
@@ -55,9 +62,9 @@ public class Boids {
         v3.plus(e.v); //on fait une moyenne ponderée des vitesses
       }
     }
-    v3.mult(1/(this.nbBoid-1));
+    v3.mult((double)1/(this.nbBoid-1));
     v3.sous(this.tabBoid[j].v);
-    v3.mult(1/8);
+    v3.mult((double)1/8);
     return v3;
   }
 

@@ -11,10 +11,13 @@ public class Boid {
     this.v = new Vector(v.x,v.y);
   }
 
-  public void limit_speed() { //permet de limiter la vitesse 
+  public void limit_speed() { //permet de limiter la vitesse
     int vlim = 20;
+
     if(this.v.norm()>vlim) {
-      this.v.mult(vlim/v.norm());
+      double k = vlim/v.norm();
+      this.v.mult(k);
+
     }
   }
 
