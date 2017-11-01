@@ -20,15 +20,20 @@ public class Boids {
 
   public Vector center(int j) {
     Vector v1 = new Vector(0,0);
+    int nbVoisinvu = 0;
       for( Boid e : this.tabBoid) {
         if (e != this.tabBoid[j]) {
-          Vector v = new Vector((int) e.p.getX(),(int)e.p.getY());
-          v1.plus(v); //on somme tous les vecteurs positions pour les boids pour obtenir une moyenne percue
+          Vector w = new Vector((int) (e.p.getX()-this.tabBoid[j].p.getX()),(int) (e.p.getY()-this.tabBoid[j].p.getY()));  //on crée un vecteur entre e et le boidj
+          if(this.tabBoid[j].v.getAngle(w)<90 && w.norm()<200){ //on test si il est dans le champs de vision de longeur 200 et avec un angle de 180 degres
+            Vector v = new Vector((int) e.p.getX(),(int)e.p.getY());
+            v1.plus(v); //on somme tous les vecteurs positions pour les boids pour obtenir une moyenne percue
+            nbVoisinvu++;
+          }
         }
     }
-    v1.mult((double)1/(this.nbBoid-1)); // on fait la moyenne
+    v1.mult((double)1/(nbVoisinvu)); // on fait la moyenne
     v1.sous(new Vector((int)this.tabBoid[j].p.getX(),(int)this.tabBoid[j].p.getY())); // on calcule le vecteur qui va du boidj au point moyen percue
-    v1.mult(0.01); //facteur pour limiter l'influence
+    v1.mult(0.05); //facteur pour limiter l'influence
     return v1;
   }
 
@@ -40,29 +45,30 @@ public class Boids {
       if (e != this.tabBoid[j]) {
         w.x = (int) (e.p.getX() - this.tabBoid[j].p.getX());
         w.y = (int) (e.p.getY() - this.tabBoid[j].p.getY());  // w = position du boid e - position du boid j
-        System.out.println("W repulsion: "+w.norm());
-        if (w.norm() < 20 ) {
+        if (w.norm() < 40 ) {
           v2.sous(w);
            // si la norme de w < a une valeur alors v2 = - w
           c++;
-          System.out.println("W repulsion compteur "+c+" v2: "+v2.toString() +" // w:" + w.toString());
         }
       }
     }
-    System.out.println("apres boucle v2: "+v2.toString());
     v2.mult((double) 1/c);
-    System.out.println("apres norm v2: "+v2.toString());
     return v2;
   }
 
   public Vector attraction(int j) {
     Vector v3 = new Vector(0,0);
+    int nbVoisinvu = 0;
     for( Boid e : this.tabBoid) {
       if (e != this.tabBoid[j]) {
-        v3.plus(e.v); //on fait une moyenne ponderée des vitesses
+        Vector w = new Vector((int) (e.p.getX()-this.tabBoid[j].p.getX()),(int) (e.p.getY()-this.tabBoid[j].p.getY()));  //on crée un vecteur entre e et le boidj
+        if(this.tabBoid[j].v.getAngle(w)<90 && w.norm()<200){
+          v3.plus(e.v); //on fait une moyenne ponderée des vitesses
+          nbVoisinvu++;
+        }
       }
     }
-    v3.mult((double)1/(this.nbBoid-1));
+    v3.mult((double)1/(nbVoisinvu));
     v3.sous(this.tabBoid[j].v);
     v3.mult((double)1/8);
     return v3;

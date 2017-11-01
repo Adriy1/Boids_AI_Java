@@ -31,6 +31,13 @@ public class Vector {
     return (Math.sqrt(this.x*this.x+this.y*this.y));
   }
 
+  public double dot(Vector w){
+    return this.x*w.x+this.y*w.y;
+  }
+  public double getAngle(Vector w){
+    return Math.toDegrees(Math.acos(this.dot(w)/(this.norm()*w.norm())));
+  }
+
   public String toString() {
     String s ="Vitesse x : "+this.x+" Vitesse y : "+this.y;
     return s;

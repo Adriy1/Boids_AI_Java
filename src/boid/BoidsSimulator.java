@@ -32,7 +32,7 @@ public void affiche() {
     x += (int) b.p.getX();y += (int) b.p.getY(); // calcul utile our le centre de gravité
 
   }
-  this.gui.addGraphicalElement(new gui.Rectangle((int) (x/this.bb.nbBoid),(int) (y/this.bb.nbBoid) ,Color.green,Color.green,10));
+  //this.gui.addGraphicalElement(new gui.Rectangle((int) (x/this.bb.nbBoid),(int) (y/this.bb.nbBoid) ,Color.green,Color.green,10));
   // correspond au centre de gravité
 }
 
@@ -56,9 +56,9 @@ public void next() {
     tmp[i].v.plus(v2);
     tmp[i].v.plus(v3);
     tmp[i].v.plus(v4);
-    System.out.println("V av : "+tmp[i].v.toString());
+    //System.out.println("V av : "+tmp[i].v.toString());
     tmp[i].limit_speed();
-    System.out.println("V f : "+tmp[i].v.toString());
+    //System.out.println("V f : "+tmp[i].v.toString());
     //System.out.println("V: x / y / i " + this.bb.tabBoid[i].v.x + " " + this.bb.tabBoid[i].v.y + " "+ i);
     tmp[i].p.setLocation(this.bb.tabBoid[i].p.getX()+this.bb.tabBoid[i].v.x ,this.bb.tabBoid[i].p.getY()+this.bb.tabBoid[i].v.y); //on calcul la nouvelle position
   }
