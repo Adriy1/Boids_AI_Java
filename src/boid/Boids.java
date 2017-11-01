@@ -28,7 +28,7 @@ public class Boids {
     }
     v1.mult((double)1/(this.nbBoid-1)); // on fait la moyenne
     v1.sous(new Vector((int)this.tabBoid[j].p.getX(),(int)this.tabBoid[j].p.getY())); // on calcule le vecteur qui va du boidj au point moyen percue
-    v1.mult(0.005); //facteur pour limiter l'influence
+    v1.mult(0.01); //facteur pour limiter l'influence
     return v1;
   }
 
@@ -41,7 +41,7 @@ public class Boids {
         w.x = (int) (e.p.getX() - this.tabBoid[j].p.getX());
         w.y = (int) (e.p.getY() - this.tabBoid[j].p.getY());  // w = position du boid e - position du boid j
         System.out.println("W repulsion: "+w.norm());
-        if (w.norm() < 15 ) {
+        if (w.norm() < 20 ) {
           v2.sous(w);
            // si la norme de w < a une valeur alors v2 = - w
           c++;
@@ -69,23 +69,36 @@ public class Boids {
   }
 
 
-  public Vector bounding_position(int j) { //on empeche de faire partir les boid en modifiant leur vitesse aux abors des bords
-    Vector v1 = new Vector(0,0);
-    int a = this.tabBoid[j].v.x;
+  public Vector bounding_position(int j) { //on empeche de faire partir les boid en modifiant leur vitesse aux abords des bords
+    /*Vector v1 = new Vector(0,0);
+    int a = this.tabBoid[j].v.x; //previus version
     int b = this.tabBoid[j].v.y;
-    if (this.tabBoid[j].p.getX() < 20 && a <0) {
+
+    if (this.tabBoid[j].p.getX() < 10 && a <0) {
       v1.x = (int )-(2*a);
     }
-    if(this.tabBoid[j].p.getX() > this.taille -20 && a > 0) {
+    if(this.tabBoid[j].p.getX() > this.taille -10 && a > 0) {
       v1.x = (int )-(2*a);
     }
-    if(this.tabBoid[j].p.getY() < 20 && b<0) {
+    if(this.tabBoid[j].p.getY() < 10 && b<0) {
       v1.y = (int )-(2*b);
     }
-    if(this.tabBoid[j].p.getY() > this.taille -20 && b>0) {
+    if(this.tabBoid[j].p.getY() > this.taille -0 && b>0) {
       v1.y = (int )-(2*b);
+    }
+    return v1;*/
+
+    Vector v1 = new Vector(0,0);
+    double k = this.tabBoid[j].v.norm();
+    if (this.tabBoid[j].p.getX() < this.taille/20 || this.tabBoid[j].p.getY() < this.taille/20 || this.tabBoid[j].p.getX() > this.taille -this.taille/20 || this.tabBoid[j].p.getY() > this.taille -this.taille/20  ){
+      v1.x=(int)(this.tabBoid[j].p.getX()-this.taille/2);
+      v1.y=(int)(this.tabBoid[j].p.getY()-this.taille/2); //force centrale au miliey quand boid est sur le bord
+      v1.mult((double)-k/v1.norm());
+      //System.out.println(" BORD " + v1.toString());   GOOD VERSION
+
     }
     return v1;
+
   }
 
 

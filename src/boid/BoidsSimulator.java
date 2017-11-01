@@ -18,7 +18,7 @@ public BoidsSimulator(GUISimulator gui){
 
 public void efface() {
   this.gui.reset();
-  //this.box();
+  this.box();
 }
 
 public void affiche() {
@@ -26,7 +26,7 @@ public void affiche() {
   int x=0,y=0;
   for (Boid b : this.bb.tabBoid) {
     //System.out.println(b.p.toString());
-    this.gui.addGraphicalElement(new Oval((int) b.p.getX(),(int) b.p.getY(),Color.white,Color.black,10));
+    this.gui.addGraphicalElement(new Oval((int) b.p.getX(),(int) b.p.getY(),Color.white,Color.black,15));
     this.gui.addGraphicalElement(new Oval((int) b.p.getX(),(int) b.p.getY(),Color.WHITE,Color.WHITE,5));
     this.gui.addGraphicalElement(new gui.Rectangle((int) (b.p.getX()+b.v.x),(int) (b.p.getY()+b.v.y) ,Color.red,Color.red,5)); // permet de representer le vecteur vitesse
     x += (int) b.p.getX();y += (int) b.p.getY(); // calcul utile our le centre de gravité
@@ -49,9 +49,7 @@ public void next() {
   Vector v4 = new Vector(0,0);
   for(int i=0;i<l;i++) {
     v1=this.bb.center(i); //on calcul les vecteurs qui définissent nos règles
-    System.out.println("V1 : "+v1.toString());
     v2=this.bb.repulsion(i);
-    System.out.println("V2 : "+v2.toString());
     v3=this.bb.attraction(i);
     v4=this.bb.bounding_position(i);
     tmp[i].v.plus(v1); // on les ajoute au vecteur vitesse du boid i
@@ -74,19 +72,19 @@ public void next() {
 public void restart() {
   System.out.println("RESTART");
   this.gui.reset();
-  //this.box();
-  this.bb = new Boids(1000,30);
+  this.bb = new Boids(900,50);
+  this.box();
   this.affiche();
 }
 
 
 
-/*
+
 public void box() {
-  this.gui.addGraphicalElement(new gui.Rectangle(-1,-1,Color.RED,Color.RED,1007,3));
-  this.gui.addGraphicalElement(new gui.Rectangle( -1,0,Color.RED,Color.RED,3,1003));
-  this.gui.addGraphicalElement(new gui.Rectangle( -1,504,Color.RED,Color.RED,1007,3));
-  this.gui.addGraphicalElement(new gui.Rectangle(504,0,Color.RED,Color.RED,3,1003));
-}*/
+  this.gui.addGraphicalElement(new gui.Rectangle(-1,-1,Color.RED,Color.RED,2*this.bb.taille,3));
+  this.gui.addGraphicalElement(new gui.Rectangle( -1,0,Color.RED,Color.RED,3,2*this.bb.taille));
+  this.gui.addGraphicalElement(new gui.Rectangle( -1,this.bb.taille,Color.RED,Color.RED,2*this.bb.taille,3));
+  this.gui.addGraphicalElement(new gui.Rectangle(this.bb.taille,0,Color.RED,Color.RED,3,2*this.bb.taille));
+}
 
 }
