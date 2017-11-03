@@ -56,7 +56,7 @@ static int iter =0;
     for(int i=0;i<l;i++) {
       tmp.remove(l-1-i);    //on supprime le tableau temporaire
     }
-    if(iter%100==0){
+    if(iter%50==0){
       reproductionPoisson(taille);
     }
   }
