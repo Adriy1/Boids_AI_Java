@@ -36,7 +36,7 @@ public class Requin extends Boid {
     ArrayList<Poisson> indice = new ArrayList<Poisson>();
     for( Poisson e : tabPoisson) {
       Vector w = new Vector( (int) (e.p.getX()-this.p.getX()), (int)(e.p.getY()-this.p.getY()));  //on crée un vecteur entre e et le poisson j
-      if(this.v.getAngle(w)<90 && w.norm()< 2*this.adn.sz){ //on test si il est proche du requin et avec un angle de 180 degres
+      if(this.v.getAngle(w)<120 && w.norm()< 2*this.adn.sz){ //on test si il est proche du requin et avec un angle de 180 degres
         indice.add(e); //on ajoute les indices des poisson a supprimer (on ne peut pas supprimer des elements d'ne liste en la parcourant)
       }
     }
@@ -62,7 +62,7 @@ public class Requin extends Boid {
       }
       v1.mult((double)1/(nbpoissonvu)); // on fait la moyenne
       v1.sous(new Vector((int)this.p.getX(),(int)this.p.getY())); // on calcule le vecteur qui va du boidj au point moyen percue
-      v1.mult(0.05); //facteur pour limiter l'influence
+      v1.mult(0.07); //facteur pour limiter l'influence
       return v1;
     }
 
