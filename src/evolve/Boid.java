@@ -4,9 +4,8 @@ import java.util.*;
 public class Boid {
   Point p;
   Vector v;
-  int vmax;
-  int sz;
-  int vision;
+  DNA adn;
+  int szz;
 
   public Boid(int x,int y,int taille) {
     this.p = new Point();
@@ -59,8 +58,8 @@ public class Boid {
   }
 
   public void limit_speed() { //permet de limiter la vitesse
-    if(this.v.norm()>this.vmax) {
-      double k = vmax/v.norm();
+    if(this.v.norm()>this.adn.vmax) {
+      double k = adn.vmax/v.norm();
       this.v.mult(k);
     }
   }
@@ -69,8 +68,8 @@ public class Boid {
   public Vector alea(){   // on ajoute un coté aléatoire dans 0.5% des cas au mouvement de l'oiseau ou alors quand il ralenti trop
     Vector v5 = new Vector(0,0);
     if(this.v.norm()<1 || Math.random()<0.0005) {
-      v5.x=(int)((Math.random()-0.5)*this.vmax/4);
-      v5.y=(int)((Math.random()-0.5)*this.vmax/4);
+      v5.x=(int)((Math.random()-0.5)*this.adn.vmax/4);
+      v5.y=(int)((Math.random()-0.5)*this.adn.vmax/4);
     }
     return v5;
   }

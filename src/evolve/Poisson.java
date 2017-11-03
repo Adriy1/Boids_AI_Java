@@ -6,10 +6,9 @@ public class Poisson extends Boid {
 
   public Poisson(int x, int y,int taille) {
     super(x,y,taille);
-    this.vmax=30;
-    this.sz = 5;
-    this.v = new Vector((int)((Math.random()-0.5)*this.vmax),(int)((Math.random()-0.5)*this.vmax));
-    this.vision = 300;
+    this.adn = new DNA(30,300,5);
+    this.v = new Vector((int)((Math.random()-0.5)*this.adn.vmax),(int)((Math.random()-0.5)*this.adn.vmax));
+    this.szz = adn.sz;
   }
 
   public Vector cohesion(ArrayList<Poisson> tabPoisson) {
@@ -18,7 +17,7 @@ public class Poisson extends Boid {
       for( Poisson e : tabPoisson) {
         if (this.equal(e) != true) {
           Vector w = new Vector( (int) (e.p.getX()-this.p.getX()), (int)(e.p.getY()-this.p.getY()));  //on crée un vecteur entre e et le boidj
-          if(this.v.getAngle(w)<90 && w.norm()<vision){ //on test si il est dans le champs de vision de longeur 200 et avec un angle de 180 degres
+          if(this.v.getAngle(w)<90 && w.norm()<adn.vision){ //on test si il est dans le champs de vision de longeur 200 et avec un angle de 180 degres
             Vector z = new Vector((int) e.p.getX(),(int)e.p.getY());
             v1.plus(z); //on somme tous les vecteurs positions pour les boids pour obtenir une moyenne percue
             nbVoisinvu++;
@@ -44,7 +43,7 @@ public class Poisson extends Boid {
       if (this.equal(e) != true) {
         w.x = (int) (e.p.getX() - this.p.getX());
         w.y = (int) (e.p.getY() - this.p.getY());  // w = position du boid e - position du boid j
-        if (w.norm() < 3*(this.sz+e.sz) ) {
+        if (w.norm() < 3*(this.adn.sz+e.adn.sz) ) {
           v2.sous(w);
            // si la norme de w < a une valeur alors v2 = - w
           c++;
@@ -61,7 +60,7 @@ public class Poisson extends Boid {
     for( Boid e : tabPoisson) {
       if (this.equal(e) != true) {
         Vector w = new Vector((int) (e.p.getX()-this.p.getX()),(int) (e.p.getY()-this.p.getY()));  //on crée un vecteur entre e et le boidj
-        if(this.v.getAngle(w)<90 && w.norm()<vision){
+        if(this.v.getAngle(w)<90 && w.norm()<adn.vision){
           v3.plus(e.v); //on fait une moyenne ponderée des vitesses
           nbVoisinvu++;
         }
@@ -79,7 +78,7 @@ public class Poisson extends Boid {
       for( Requin e : tabRequin) {
         if (this.equal(e) != true) {
           Vector w = new Vector( (int) (e.p.getX()-this.p.getX()), (int)(e.p.getY()-this.p.getY()));  //on crée un vecteur entre e et le boidj
-          if(this.v.getAngle(w)<90 && w.norm()<vision){ //on test si il est dans le champs de vision de longeur 200 et avec un angle de 180 degres
+          if(this.v.getAngle(w)<90 && w.norm()<adn.vision){ //on test si il est dans le champs de vision de longeur 200 et avec un angle de 180 degres
             Vector v = new Vector((int) e.p.getX(),(int)e.p.getY());
             v6.sous(v); //on somme tous les vecteurs positions pour les boids pour obtenir une moyenne percue
             nbRequinvu++;
@@ -96,8 +95,8 @@ public class Poisson extends Boid {
 
 
   public void affichePoisson(GUISimulator gui){
-    gui.addGraphicalElement(new Oval((int) p.getX(),(int) p.getY(),Color.white,Color.black,3*sz));
-    gui.addGraphicalElement(new Oval((int) p.getX(),(int) p.getY(),Color.WHITE,Color.WHITE,sz));
-    gui.addGraphicalElement(new gui.Rectangle((int) (p.getX()+v.x),(int) (p.getY()+v.y) ,Color.red,Color.red,sz)); // permet de representer le vecteur vitesse
+    gui.addGraphicalElement(new Oval((int) p.getX(),(int) p.getY(),Color.white,Color.black,3*szz));
+    gui.addGraphicalElement(new Oval((int) p.getX(),(int) p.getY(),Color.WHITE,Color.WHITE,szz));
+    gui.addGraphicalElement(new gui.Rectangle((int) (p.getX()+v.x),(int) (p.getY()+v.y) ,Color.red,Color.red,szz)); // permet de representer le vecteur vitesse
   }
 }

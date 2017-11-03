@@ -6,7 +6,7 @@ public class Boids {
   ArrayList<Poisson> ListeProie;  //tableau pour stoker les boid
   ArrayList<Requin> ListePreda;
 
-
+static int iter =0;
 
   public Boids(int taille, int nbpoisson,int nbpreda) {
     ListeProie = new ArrayList<Poisson>();
@@ -20,6 +20,7 @@ public class Boids {
   }
 
   public void nextPoisson(int taille){
+    iter++;
     int l = ListeProie.size();
     ArrayList<Poisson> tmp = new ArrayList<Poisson>();
     for(int i=0;i<l;i++) {
@@ -52,6 +53,9 @@ public class Boids {
     }
     for(int i=0;i<l;i++) {
       tmp.remove(l-1-i);    //on supprime le tableau temporaire
+    }
+    if(iter%100==0){
+      reproductionPoisson(taille);
     }
   }
 
@@ -96,6 +100,13 @@ public class Boids {
     for(int i=0;i<l;i++) {
       tmp.remove(l-1-i);    //on supprime le tableau temporaire
     }
+    if(iter%100 == 0) {
+      ArrayList<Requin> ListeBebeRequin = new ArrayList<Requin>();
+      reproductionRequin(ListePreda,ListeBebeRequin,taille);
+      mortRequin();
+      naissanceRequin(ListeBebeRequin);
+      initScore();
+    }
   }
 
   public void affichetouslesRequins(GUISimulator gui){
@@ -104,6 +115,102 @@ public class Boids {
     }
   }
 
+  public void reproductionPoisson(int taille){
+    ArrayList<Poisson> matingPool = new ArrayList<Poisson>();
+    for(Poisson p : ListeProie){
+      matingPool.add(p);
+    }
+    while (matingPool.size()>1) {
+      int a = (int) (Math.random()*matingPool.size());
+      Poisson male = matingPool.get(a);
+      Poisson femelle = matingPool.get(a);
+      double normmini = 999999999;
+      for (Poisson b : ListeProie) {
+        if((new Vector((int)(b.p.getX()-male.p.getX()),(int)(b.p.getY()-male.p.getY()))).norm() < normmini && male.equal(b) == false){
+          normmini = (new Vector((int)(b.p.getX()-male.p.getX()),(int)(b.p.getY()-male.p.getY()))).norm();
+          femelle = b;
+        }
+      }
+      Poisson enfant1 = new Poisson((int)((male.p.getX()+femelle.p.getX())/2.0),(int)((male.p.getY()+femelle.p.getY())/2.0),taille);
+    //  Poisson enfant2 = new Poisson((int)((male.p.getX()+femelle.p.getX())/2.0),(int)((male.p.getY()+femelle.p.getY())/2.0),taille);
+    //  ListeProie.add(enfant2);
+      ListeProie.add(enfant1);
+      matingPool.remove(male);
+      matingPool.remove(femelle);
+    }
 
+  }
+
+  public ArrayList<Requin> createMatingPool(ArrayList<Requin> tabRequin) { // on cree un tableau en fonction des scores des requins
+    ArrayList<Requin> matingPool = new ArrayList<Requin>();
+    for(Requin e : tabRequin ) {
+      for(int i=0;i<e.adn.score+1;i++) {
+        matingPool.add(e);
+      }
+    }
+    return matingPool;
+  }
+
+  public void reproductionRequin(ArrayList<Requin> tabRequin, ArrayList<Requin> tabEnfant,int taille){ // on tire dans ce tableau deux parents aléatoirement
+    ArrayList<Requin> matingPool = createMatingPool((ArrayList<Requin>)(tabRequin));
+    while (matingPool.size()>1 && matingPool.get(0).equal(matingPool.get(matingPool.size()-1)) == false) {
+      int a = (int) (Math.random()*matingPool.size());
+      int b = (int) (Math.random()*matingPool.size());
+      while(matingPool.get(a).equal(matingPool.get(b))) { //on verifie que les parents sont différent on essaye plusisuers
+        b = (int) (Math.random()*matingPool.size());
+      }
+      Requin male = matingPool.get(a);
+      Requin femelle = matingPool.get(b);
+      DNA child = new DNA(male.adn.vmax,male.adn.vision,male.adn.sz); //on crée un adn enfant qui sera soit celui de la mere soit du pere
+      if(Math.random()<0.5){
+        child.vision=femelle.adn.vision;
+      }
+      if(Math.random()<0.5){
+        child.sz=femelle.adn.sz;
+      }
+      if(Math.random()<0.5){
+        child.vmax=femelle.adn.vmax;
+      }
+      child.mutation(0.1);
+      Requin enfant = new Requin((int)((male.p.getX()+femelle.p.getX())/2.0),(int)((male.p.getY()+femelle.p.getY())/2.0),taille); //on creer le requin avec le bon adn
+      enfant.adn=child;
+      enfant.v = new Vector((int)((Math.random()-0.5)*enfant.adn.vmax),(int)((Math.random()-0.5)*enfant.adn.vmax));
+      tabEnfant.add(enfant);
+      int indice = matingPool.indexOf(male);
+      matingPool.subList(indice,indice+male.adn.score+1).clear(); //on supprime les deux parents de la matingpool
+      indice = matingPool.indexOf(femelle);
+      matingPool.subList(indice,indice+femelle.adn.score+1).clear();
+    }
+  }
+
+  public void mortRequin(){
+    int S = 0;
+    ArrayList<Requin> indice = new ArrayList<Requin>();
+    if(ListePreda.size() != 0) {
+      for(Requin r : ListePreda){
+        S += r.adn.score;
+      }
+      for(Requin r : ListePreda) {
+        if(S/ListePreda.size() > r.adn.score) {
+          indice.add(r);
+        }
+      }
+      for(Requin r : indice) {
+        ListePreda.remove(r);//System.out.println("mort");
+      }
+    }
+  }
+
+  public void naissanceRequin(ArrayList<Requin> tabEnfant){
+    for(Requin r : tabEnfant){
+      ListePreda.add(r);//System.out.println("naissance");
+    }
+  }
+
+  public void initScore(){
+    for(int i=0;i<ListePreda.size();i++){
+      ListePreda.get(i).adn.score = 0;
+    }
+  }
 
 }
