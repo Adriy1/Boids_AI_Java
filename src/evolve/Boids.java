@@ -15,7 +15,9 @@ static int iter =0;
       ListeProie.add(new Poisson((int)(Math.random()*taille), (int)(Math.random()*taille),taille));
     }
     for(int i=0;i<nbpreda;i++) {
-      ListePreda.add(new Requin((int)(Math.random()*taille), (int)(Math.random()*taille),taille));
+      int w = (new Gauss(5,60,20)).tirage();
+      DNA adn = new DNA(w,(new Gauss(100,500,100)).tirage(),25 - w/3);
+      ListePreda.add(new Requin((int)(Math.random()*taille), (int)(Math.random()*taille),taille,adn));
     }
   }
 
@@ -172,9 +174,7 @@ static int iter =0;
         child.vmax=femelle.adn.vmax;
       }
       child.mutation(0.1);
-      Requin enfant = new Requin((int)((male.p.getX()+femelle.p.getX())/2.0),(int)((male.p.getY()+femelle.p.getY())/2.0),taille); //on creer le requin avec le bon adn
-      enfant.adn=child;
-      enfant.v = new Vector((int)((Math.random()-0.5)*enfant.adn.vmax),(int)((Math.random()-0.5)*enfant.adn.vmax));
+      Requin enfant = new Requin((int)((male.p.getX()+femelle.p.getX())/2.0),(int)((male.p.getY()+femelle.p.getY())/2.0),taille,child); //on creer le requin avec le bon adn
       tabEnfant.add(enfant);
       int indice = matingPool.indexOf(male);
       matingPool.subList(indice,indice+male.adn.score+1).clear(); //on supprime les deux parents de la matingpool
@@ -185,21 +185,27 @@ static int iter =0;
 
   public void mortRequin(){
     int S = 0;
+    ArrayList<Integer> tabMediane = new ArrayList<Integer>();
     ArrayList<Requin> indice = new ArrayList<Requin>();
+    int j =0;
     if(ListePreda.size() != 0) {
       for(Requin r : ListePreda){
-        S += r.adn.score;
+        tabMediane.add(r.adn.score);
+        j++;
       }
+      Collections.sort(tabMediane);
       for(Requin r : ListePreda) {
-        if(S/ListePreda.size() > r.adn.score) {
+        if(tabMediane.get((tabMediane.size()-1)/2) >= r.adn.score && S < (tabMediane.size()/2)) {
           indice.add(r);
+          S++;
         }
       }
+    }
       for(Requin r : indice) {
         ListePreda.remove(r);//System.out.println("mort");
       }
     }
-  }
+
 
   public void naissanceRequin(ArrayList<Requin> tabEnfant){
     for(Requin r : tabEnfant){

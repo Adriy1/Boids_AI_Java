@@ -5,7 +5,7 @@ public class Boid {
   Point p;
   Vector v;
   DNA adn;
-  int szz;
+  int szz; // au cas ou je veux les faire grossir sans changer l'adn
 
   public Boid(int x,int y,int taille) {
     this.p = new Point();

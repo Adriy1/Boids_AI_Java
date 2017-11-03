@@ -4,8 +4,8 @@ import java.awt.Color;
 
 public class TestBoidsSimulator {
   public static void main(String [] args) {
-    GUISimulator gui = new GUISimulator(2000,2000,Color.BLACK);
-    gui.setSimulable(new BoidsSimulator(gui,900,40,5));
+    GUISimulator gui = new GUISimulator(3000,3000,Color.BLACK);
+    gui.setSimulable(new BoidsSimulator(gui,900,60,8));
     //gui.addGraphicalElement(new Rectangle(90, 40, Color.WHITE, Color.WHITE, 10));
   }
 }

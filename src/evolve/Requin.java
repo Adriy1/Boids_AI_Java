@@ -4,11 +4,12 @@ import java.util.*;
 
 public class Requin extends Boid {
 
-  public Requin(int x, int y,int taille) {
+  public Requin(int x, int y,int taille,DNA adn) {
     super(x,y,taille);
-    int w = (new Gauss(10,50,10)).tirage();
-    this.adn = new DNA(w,(new Gauss(200,400,50)).tirage(),22 - w/3);
-    this.v = new Vector((int)((Math.random()-0.5)*w),(int)((Math.random()-0.5)*w));
+    this.adn = adn;
+    Vector w= new Vector((int)((Math.random()-0.5)*adn.vmax),(int)((Math.random()-0.5)*adn.vmax));
+    w.mult((double) adn.vmax/w.norm());
+    this.v = w;
     this.szz = adn.sz;
   }
 
