@@ -56,7 +56,7 @@ static int iter =0;
     for(int i=0;i<l;i++) {
       tmp.remove(l-1-i);    //on supprime le tableau temporaire
     }
-    if(iter%75==0){
+    if(iter%50==0){
       reproductionPoisson(taille);
     }
   }
@@ -134,8 +134,8 @@ static int iter =0;
         }
       }
       Poisson enfant1 = new Poisson((int)((male.p.getX()+femelle.p.getX())/2.0),(int)((male.p.getY()+femelle.p.getY())/2.0),taille);
-    //  Poisson enfant2 = new Poisson((int)((male.p.getX()+femelle.p.getX())/2.0),(int)((male.p.getY()+femelle.p.getY())/2.0),taille);
-    //  ListeProie.add(enfant2);
+      Poisson enfant2 = new Poisson((int)((male.p.getX()+femelle.p.getX())/2.0),(int)((male.p.getY()+femelle.p.getY())/2.0),taille);
+      ListeProie.add(enfant2);
       ListeProie.add(enfant1);
       matingPool.remove(male);
       matingPool.remove(femelle);
@@ -205,7 +205,6 @@ static int iter =0;
         ListePreda.remove(r);//System.out.println("mort");
       }
     }
-
 
   public void naissanceRequin(ArrayList<Requin> tabEnfant){
     for(Requin r : tabEnfant){

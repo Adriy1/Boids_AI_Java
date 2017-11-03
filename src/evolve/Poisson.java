@@ -25,8 +25,6 @@ public class Poisson extends Boid {
         }
     }
     if(nbVoisinvu == 0){
-      v1.x=0;
-      v1.y=0;
       return v1;
     }
     v1.mult((double)1/(nbVoisinvu)); // on fait la moyenne

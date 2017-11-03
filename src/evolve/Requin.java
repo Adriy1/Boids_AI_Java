@@ -47,7 +47,7 @@ public class Requin extends Boid {
   }
 
   public Vector chasser(ArrayList<Poisson> tabPoisson){
-    Vector v1 = new Vector((int)this.p.getX(),(int)this.p.getY());
+    Vector v1 = new Vector(0,0);
     int nbpoissonvu = 0;
       for( Poisson e : tabPoisson) {
           Vector w = new Vector( (int) (e.p.getX()-this.p.getX()), (int)(e.p.getY()-this.p.getY()));  //on crée un vecteur entre e et le boidj
@@ -57,17 +57,14 @@ public class Requin extends Boid {
             nbpoissonvu++;
           }
       }
-      if (nbpoissonvu == 0) {
-        v1.sous(new Vector((int)this.p.getX(),(int)this.p.getY()));
+      if (nbpoissonvu == 0 ) {
         return v1;
       }
-      else {
-        v1.mult((double)1/(nbpoissonvu)); // on fait la moyenne
-        v1.sous(new Vector((int)this.p.getX(),(int)this.p.getY())); // on calcule le vecteur qui va du boidj au point moyen percue
-        v1.mult(0.1); //facteur pour limiter l'influence
-        return v1;
-      }
-  }
+      v1.mult((double)1/(nbpoissonvu)); // on fait la moyenne
+      v1.sous(new Vector((int)this.p.getX(),(int)this.p.getY())); // on calcule le vecteur qui va du boidj au point moyen percue
+      v1.mult(0.1); //facteur pour limiter l'influence
+      return v1;
+    }
 
 
   public void afficheRequin(GUISimulator gui){
