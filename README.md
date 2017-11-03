@@ -12,6 +12,10 @@ Parametres de la simulation dans BallsSimulator.java
 A chaque restart la position des balles et leurs vitesses sont aléatoires. /!\ pas de collision entre balles
 
 /////////////////////////////////////////////////////////////////////////
+#LifeGame
+lancer: $ make exeLifeGame
+
+/////////////////////////////////////////////////////////////////////////
 
 #Immigration
 
@@ -41,3 +45,9 @@ la taille de la grille ou le nombre de case libre ne semble pas jouer un role tr
 /!\ Si la limite est trop basse ou le nb de couleur trop grand, la segregation ne peut jamais arriver ! En effet, tout le monde veut toujours démenager !
 
 Pour l'instant seulement des nuances de gris mais pourquoi pas faire en couleur.
+
+#boid ou evolve
+
+lancer simple boid : make exeBoids
+
+pour lancer evolve : make exeEvolve
