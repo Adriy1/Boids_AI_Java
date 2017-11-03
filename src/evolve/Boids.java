@@ -16,7 +16,7 @@ static int iter =0;
     }
     for(int i=0;i<nbpreda;i++) {
       int w = (new Gauss(5,60,20)).tirage();
-      DNA adn = new DNA(w,(new Gauss(100,500,100)).tirage(),25 - w/3);
+      DNA adn = new DNA(w,(new Gauss(100,500,100)).tirage(),(int)(27-w/3));
       ListePreda.add(new Requin((int)(Math.random()*taille), (int)(Math.random()*taille),taille,adn));
     }
   }

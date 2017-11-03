@@ -62,7 +62,7 @@ public class Requin extends Boid {
       }
       v1.mult((double)1/(nbpoissonvu)); // on fait la moyenne
       v1.sous(new Vector((int)this.p.getX(),(int)this.p.getY())); // on calcule le vecteur qui va du boidj au point moyen percue
-      v1.mult(0.1); //facteur pour limiter l'influence
+      v1.mult(0.05); //facteur pour limiter l'influence
       return v1;
     }
 
