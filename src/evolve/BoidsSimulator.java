@@ -33,7 +33,7 @@ public void affiche() {
 
 @Override
 public void next() {
-  bb.nextPoisson(taille);
+  bb.nextPoisson(taille,nbpoisson);
   bb.nextRequin(taille);
   affiche();
 }

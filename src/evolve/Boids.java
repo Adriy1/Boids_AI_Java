@@ -21,9 +21,14 @@ static int iter =0;
     }
   }
 
-  public void nextPoisson(int taille){
+  public void nextPoisson(int taille,int nbpoisson){
     iter++;
     int l = ListeProie.size();
+    if (l==0){
+      for(int i=0;i<nbpoisson;i++) {
+        ListeProie.add(new Poisson((int)(Math.random()*taille), (int)(Math.random()*taille),taille));
+      }
+    }
     ArrayList<Poisson> tmp = new ArrayList<Poisson>();
     for(int i=0;i<l;i++) {
       tmp.add(i,ListeProie.get(i));
