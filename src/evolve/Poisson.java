@@ -6,7 +6,7 @@ public class Poisson extends Boid {
 
   public Poisson(int x, int y,int taille) {
     super(x,y,taille);
-    this.adn = new DNA(30,300,5);
+    this.adn = new DNA(30,300,5,new Perceptron(0,0));
     this.v = new Vector((int)((Math.random()-0.5)*this.adn.vmax),(int)((Math.random()-0.5)*this.adn.vmax));
     this.szz = adn.sz;
   }
@@ -25,6 +25,8 @@ public class Poisson extends Boid {
         }
     }
     if(nbVoisinvu == 0){
+      v1.x=0;
+      v1.y=0;
       return v1;
     }
     v1.mult((double)1/(nbVoisinvu)); // on fait la moyenne
@@ -91,6 +93,22 @@ public class Poisson extends Boid {
     return v6;
   }
 
+  public Vector getRequinplusProche(ArrayList<Requin> tabRequin) {
+    if(tabRequin.size() != 0){
+      Requin cible = tabRequin.get(0);
+      double normmini = (new Vector((int)(cible.p.getX()-p.getX()),(int)(cible.p.getY()-p.getY()))).norm();
+      for (Requin b : tabRequin.subList(1,tabRequin.size())) {
+        if((new Vector((int)(b.p.getX()-p.getX()),(int)(b.p.getY()-p.getY()))).norm() < normmini){
+          normmini = (new Vector((int)(b.p.getX()-p.getX()),(int)(b.p.getY()-p.getY()))).norm();
+          cible = b;
+        }
+      }
+      Vector w = (new Vector((int)(cible.p.getX()-p.getX()),(int)(cible.p.getY()-p.getY())));
+      w.mult(-1);
+      return w;
+    }
+    return (new Vector(0,0));
+  }
 
   public void affichePoisson(GUISimulator gui){
     gui.addGraphicalElement(new Oval((int) p.getX(),(int) p.getY(),Color.white,Color.black,3*szz));

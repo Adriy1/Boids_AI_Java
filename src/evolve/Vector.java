@@ -28,7 +28,10 @@ public class Vector {
   }
 
   public double norm() {
-    return (Math.sqrt(this.x*this.x+this.y*this.y));
+    double b = (double)this.y;
+    double c = (double)this.x;
+    double a = c*c+ b*b;
+    return (Math.sqrt(a));
   }
 
   public double dot(Vector w){

@@ -3,11 +3,13 @@ public class DNA {
   int vision;
   int sz;
   int score = 0;
+  Perceptron brain;
 
-  public DNA(int vmax,int vision,int sz){
+  public DNA(int vmax,int vision,int sz,Perceptron brain){
     this.vmax=vmax;
     this.vision=vision;
     this.sz = sz;
+    this.brain = brain;
   }
 
  public void mutation(double mutationRate) {

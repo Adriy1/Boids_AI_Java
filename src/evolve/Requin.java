@@ -66,6 +66,21 @@ public class Requin extends Boid {
       return v1;
     }
 
+    public Vector getPoissonplusProche(ArrayList<Poisson> tabPoisson) {     // permet de savoir ou le poisson plus proche se trouve
+      if(tabPoisson.size() != 0){                                           // utile pour savoir l'erreur et entrainer le cerveau
+        Poisson cible = tabPoisson.get(0);
+        double normmini = (new Vector((int)(cible.p.getX()-p.getX()),(int)(cible.p.getY()-p.getY()))).norm();
+        for (Poisson b : tabPoisson.subList(1,tabPoisson.size())) {
+          if((new Vector((int)(b.p.getX()-p.getX()),(int)(b.p.getY()-p.getY()))).norm() < normmini){
+            normmini = (new Vector((int)(b.p.getX()-p.getX()),(int)(b.p.getY()-p.getY()))).norm();
+            cible = b;
+          }
+        }
+        return (new Vector((int)(cible.p.getX()-p.getX()),(int)(cible.p.getY()-p.getY())));
+      }
+      return (new Vector(0,0));
+    }
+
 
   public void afficheRequin(GUISimulator gui){
     gui.addGraphicalElement(new Oval((int) p.getX(),(int) p.getY(),Color.blue,Color.black,3*szz));

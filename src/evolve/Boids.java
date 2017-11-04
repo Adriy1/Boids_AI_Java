@@ -16,7 +16,7 @@ static int iter =0;
     }
     for(int i=0;i<nbpreda;i++) {
       int w = (new Gauss(5,60,20)).tirage();
-      DNA adn = new DNA(w,(new Gauss(100,500,100)).tirage(),(int)(27-w/3));
+      DNA adn = new DNA(w,(new Gauss(100,500,100)).tirage(),(int)(27-w/3),new Perceptron(1,0.0000001));
       ListePreda.add(new Requin((int)(Math.random()*taille), (int)(Math.random()*taille),taille,adn));
     }
   }
@@ -88,14 +88,30 @@ static int iter =0;
       v2 = b.separation(ListePreda);
       v4 = b.bounding_position(taille);
       v5 = b.alea();//System.out.println("V: " +b.v.toString()+ " V1: " +v1.toString()+ " V2: " +v2.toString()+ " V3: " +v5.toString()+ " V4: " +v4.toString());
-      b.v.plus(v1);
+      Vector[] forces = {v1};
+      Vector result = b.adn.brain.feedforward(forces,b); //brain process
+  //    b.v.plus(v1);
       b.v.plus(v2);
-      b.v.plus(v4);
+      b.v.plus(result);
       b.limit_speed();
+      b.v.plus(v4);
       b.v.plus(v5);
       b.setGoodLocation((int)b.p.getX()+b.v.x ,(int)b.p.getY()+b.v.y,taille);
       b.manger(ListeProie);
+      Vector error = b.getPoissonplusProche(ListeProie);
+      b.adn.brain.train(forces,error);
+      System.out.println(b + " " +b.adn.brain.weights[0]);
     }
+    System.out.println("\n");
+    double vv=0,ss=0,vi=0,in=0,al=0;
+    for(Requin b : tmp){
+      vv += b.adn.vmax;
+      ss += b.adn.sz;
+      vi += b.adn.vision;
+      in += b.adn.brain.weights[0];
+    }
+    System.out.println("Vmoy="+vv/tmp.size()+" Taille Moyenne="+ss/tmp.size()+" Vision moyenne="+vi/tmp.size()+" Intelligence Moy="+in/tmp.size());
+    System.out.println("\n");
     for(int i=0;i<l;i++) {
       ListePreda.set(i,tmp.get(i));  //on copie le tableau temporaire
     }
@@ -163,7 +179,7 @@ static int iter =0;
       }
       Requin male = matingPool.get(a);
       Requin femelle = matingPool.get(b);
-      DNA child = new DNA(male.adn.vmax,male.adn.vision,male.adn.sz); //on crée un adn enfant qui sera soit celui de la mere soit du pere
+      DNA child = new DNA(male.adn.vmax,male.adn.vision,male.adn.sz,male.adn.brain); //on crée un adn enfant qui sera soit celui de la mere soit du pere
       if(Math.random()<0.5){
         child.vision=femelle.adn.vision;
       }
@@ -172,6 +188,9 @@ static int iter =0;
       }
       if(Math.random()<0.5){
         child.vmax=femelle.adn.vmax;
+      }
+      if(Math.random()<0.5){
+        child.brain=femelle.adn.brain;
       }
       child.mutation(0.1);
       Requin enfant = new Requin((int)((male.p.getX()+femelle.p.getX())/2.0),(int)((male.p.getY()+femelle.p.getY())/2.0),taille,child); //on creer le requin avec le bon adn
