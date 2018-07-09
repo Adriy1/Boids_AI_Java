@@ -7,14 +7,14 @@ La version la plus intéressante du projet se situe dans le dossier evolve. Un a
 
  ---
 
-## Balle
+## Balle
 Pour executer le jeu avec les balles lancer: $ make exeSimBall
 
 Parametres de la simulation dans BallsSimulator.java
 
 A chaque restart la position des balles et leurs vitesses sont aléatoires. /!\ pas de collision entre balles
 
-## LifeGame
+## LifeGame
 
 Simplement le jeu de la vie avec une interface graphique java
 
@@ -34,7 +34,7 @@ Univers est une classe qui peut être adaptée à plusieurs modelisation. Il s'a
 
 ---
 
-## schelling
+## Schelling
 
 Pour lancer l'immigration: $ make exe2SimUnivers
 Initialiser avec Debut puis lancer Lecture
@@ -53,7 +53,7 @@ Pour l'instant seulement des nuances de gris mais pourquoi pas faire en couleur.
 
 --- 
 
-## boid
+## Boid
 
 Il s'agit d'une simulation d'agents autonomes fonctionnant comme un banc de poisson. 
 
