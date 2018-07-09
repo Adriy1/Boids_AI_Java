@@ -1,4 +1,4 @@
-##  Projet-Java-2a
+# Projet-Java-2a
 
 Pour compiler lancer: $ make
 
@@ -22,7 +22,7 @@ lancer: $ make exeLifeGame
 
 ---
 
-## Immigration
+## Immigration
 
 Pour lancer l'immigration: $ make exeSimUnivers
 Initialiser avec Debut puis lancer Lecture
