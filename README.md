@@ -4,6 +4,7 @@ Pour compiler lancer: $ make
 
 L'objectif de ce projet était d'implémenter des agents autonomes (boids).
 La version la plus intéressante du projet se situe dans le dossier evolve. Un algorithme génétique y est implémenté ainsi qu'un neurone de machine learning pour améliorer les performances des agents autonome.
+
  ---
 
 ## Balle
